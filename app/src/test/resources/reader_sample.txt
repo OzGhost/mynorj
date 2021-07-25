@@ -1,0 +1,2 @@
+use a from my.input.firstValue
+if compare a > b
