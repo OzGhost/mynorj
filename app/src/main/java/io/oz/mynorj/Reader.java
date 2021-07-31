@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class Reader {
-    public List<String[]> read(String pathToFile) {
+    public List<Tub> read(String pathToFile) {
         List<String> lines = null;
         try {
             lines = Files.readAllLines(new File(pathToFile).toPath());
@@ -16,15 +16,15 @@ public class Reader {
             e.printStackTrace();
             lines = Collections.emptyList();
         }
-        List<String[]> elements = new ArrayList<>(lines.size());
+        List<Tub> elements = new ArrayList<>(lines.size());
         for (String line: lines) {
             elements.add( toElements(line) );
         }
         return elements;
     }
 
-    private String[] toElements(String line) {
-        return line.trim().split("\\s+");
+    private Tub toElements(String line) {
+        return new Tub(line.trim().split("\\s+"));
     }
 }
 
