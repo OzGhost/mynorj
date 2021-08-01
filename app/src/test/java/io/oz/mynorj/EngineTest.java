@@ -3,9 +3,20 @@ package io.oz.mynorj;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class EngineTest {
-    @Test public void test_run() {
-        new Engine().run("src/test/resources/reader_sample.txt");
+    @Test
+    public void test_run() {
+        Map<String, Object> b = new HashMap<>();
+        b.put("b", 550);
+        Map<String, Object> a = new HashMap<>();
+        a.put("a", b);
+        Map<String, Object> g = new HashMap<>();
+        g.put("g", a);
+        Box box = new Engine().run("src/test/resources/list_func.txt", g);
+        double val = box.getValue(Double.class, "c");
+        assertEquals(550d, val, 0.0001);
     }
 }

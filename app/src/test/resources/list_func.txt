@@ -1,0 +1,15 @@
+if isNull 5
+    use d from g.a.b
+else
+    use c from g.a.b
+endif
+else
+exit false
+set
+compare
+combine
+isNull 9
+isFalse
+multiply
+add
+divide

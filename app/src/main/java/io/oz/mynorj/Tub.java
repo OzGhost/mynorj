@@ -15,7 +15,7 @@ public class Tub {
 
     public String pop() {
         if (remain() == 0) {
-            return null;
+            throw new ExecutionException("No more elements left to pop out !!!");
         }
         return els[head++];
     }
@@ -26,6 +26,10 @@ public class Tub {
 
     public int remain() {
         return els.length - head;
+    }
+
+    public boolean isEmpty() {
+        return els.length == 0;
     }
 }
 

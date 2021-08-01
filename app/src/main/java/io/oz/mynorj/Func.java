@@ -1,26 +1,29 @@
 package io.oz.mynorj;
 
-import io.oz.mynorj.func.UseFunc;
 import java.util.Map;
 import java.util.HashMap;
 
 public abstract class Func {
 
     private static final Map<String, Func> dict = new HashMap<>(); // store func
+    private String name;
 
     public static Func get(String name) {
         return dict.get(name);
     }
 
-    static {
-        UseFunc.sign();
+    protected Func(String name) {
+        this.name = name;
     }
 
-    public abstract Object runOn(Tub tub, Box b);
+    public Object runOn(Tub tub, Box box) {
+        System.out.println("Function <" + name + "> is running ...");
+        return null;
+    }
 
-    protected void register(String name) {
+    protected void register() {
         dict.merge(name, this, (a,b) -> {
-            throw new RuntimeException("Duplicate register for name: <"+name+">");
+            throw new RuntimeException("Function named <"+name+"> already exists !!!");
         });
     }
 }
