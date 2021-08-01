@@ -157,6 +157,14 @@ public class Box {
         exceptor = null;
     }
 
+    public Double getNumber(String raw) {
+        Double val = getValue(Double.class, raw);
+        if (val == null) {
+            return 0d;
+        }
+        return val;
+    }
+
     private static class SilentFunc extends Func {
         SilentFunc() { super("silent"); }
         @Override

@@ -35,7 +35,7 @@ public class Engine {
         DivideFunc.sign();
     }
 
-    public Box run(String path2file, Object rawGround) {
+    public boolean run(String path2file, Object rawGround) {
         List<Tub> tubs = new Reader().read(path2file);
         Box box = new Box();
         boolean[] stopMidWay = new boolean[]{false};
@@ -61,8 +61,7 @@ public class Engine {
                 throw new ExecutionException(e, "Line " + linenum + ": " + e.getMessage());
             }
         }
-        boolean out = box.outcome();
-        return box;
+        return box.outcome();
     }
 }
 

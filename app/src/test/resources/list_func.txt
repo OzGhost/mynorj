@@ -3,7 +3,29 @@ if isNull 5
 else
     use c from g.a.b
 endif
+if compare 55 < 10
+    set y = add null 98
+    exit true // not gonna happen
 else
+    set y = add null 88
+endif
+set x = add 1 150
+set m = combine true and false
+set n = combine true or false
+set k = combine true and true
+set j = combine true or true
+set p = combine false and false
+set q = combine false or false
+set t = divide 10 0.1
+if isFalse false
+    set w = add 1 1
+endif
+if isFalse somethingelse
+    set z = add 1 null
+else
+    set z = add 1 5
+endif
+set v = multiply 100 0.258
 exit false
 set
 compare

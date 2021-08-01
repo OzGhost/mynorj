@@ -78,8 +78,9 @@ public class IfFamily {
 
         @Override
         public Object runOn(Tub tub, Box box) {
-            box.popState(State.OK);
-            box.popState(State.NOK);
+            if (box.popState(State.OK) == null && box.popState(State.NOK) == null) {
+                throw new ExecutionException("Context failure! No if ahead!");
+            }
             box.release();
             return null;
         }
