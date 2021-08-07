@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class Reader {
+
     public List<Tub> read(String pathToFile) {
         List<String> lines = null;
         try {
@@ -28,6 +29,7 @@ public class Reader {
         if (trimline.isEmpty()) {
             return new Tub(null);
         }
+        // TODO: Support string literal -> later
         return new Tub(trimline.split("\\s+"));
     }
 }

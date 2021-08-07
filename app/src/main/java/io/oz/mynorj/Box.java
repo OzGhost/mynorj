@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Queue;
+import java.util.Deque;
 
 public class Box {
         
@@ -17,7 +17,7 @@ public class Box {
     private boolean endval;
     private boolean stoped = false;
     private JsonNode ground;
-    private Queue<Object> states = new LinkedList<>();
+    private Deque<Object> states = new LinkedList<>();
     private boolean silenced = false;
     private Predicate<String> exceptor;
 
@@ -127,16 +127,16 @@ public class Box {
     }
 
     public void pushState(Object state) {
-        states.offer(state);
+        states.addFirst(state);
     }
 
-    public Object currentState() {
-        return states.peek();
+    public boolean isCurrentState(Object state) {
+        return !states.isEmpty() && state == states.getFirst();
     }
 
     public Object popState(Object state) {
-        if (states.peek() == state) { // allow to poll if given state is current state
-            return states.poll();
+        if (states.getFirst() == state) { // allow to poll if given state is current state
+            return states.removeFirst();
         }
         return null;
     }
@@ -146,6 +146,7 @@ public class Box {
         exceptor = ex;
     }
 
+    // TODO: add restriction so that this function only work under some condition
     public void release() {
         silenced = false;
         exceptor = null;

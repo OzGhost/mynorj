@@ -58,10 +58,10 @@ public class IfFamily {
 
         @Override
         public Object runOn(Tub tub, Box box) {
-            if (box.currentState() == State.OK) {
+            if (box.isCurrentState(State.OK)) {
                 box.silent(name -> "endif".equals(name));
             } else
-            if (box.currentState() == State.NOK) {
+            if (box.isCurrentState(State.NOK)) {
                 box.release();
             } else {
                 throw new ExecutionException("Context failure! No if ahead!");
