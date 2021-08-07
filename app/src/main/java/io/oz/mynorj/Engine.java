@@ -38,17 +38,11 @@ public class Engine {
     public boolean run(String path2file, Object rawGround) {
         List<Tub> tubs = new Reader().read(path2file);
         Box box = new Box();
-        boolean[] stopMidWay = new boolean[]{false};
-        Supplier<Boolean> endCb = () -> {
-            stopMidWay[0] = true;
-            return true;
-        };
-        box.setEndCallback(endCb);
         JsonNode ground = new ObjectMapper().valueToTree(rawGround);
         box.setGround(ground);
         Iterator<Tub> ite = tubs.iterator();
         int linenum = 0;
-        while (ite.hasNext() && !stopMidWay[0]) {
+        while (ite.hasNext() && box.running()) {
             linenum++;
             Tub t = ite.next();
             if (t.isEmpty()) {

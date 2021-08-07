@@ -16,10 +16,7 @@ public abstract class Func {
         this.name = name;
     }
 
-    public Object runOn(Tub tub, Box box) {
-        System.out.println("Function <" + name + "> is running ...");
-        return null;
-    }
+    public abstract Object runOn(Tub tub, Box box);
 
     protected void register() {
         dict.merge(name, this, (a,b) -> {

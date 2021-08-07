@@ -24,7 +24,11 @@ public class Reader {
     }
 
     private Tub toElements(String line) {
-        return new Tub(line.trim().split("\\s+"));
+        String trimline = line.trim();
+        if (trimline.isEmpty()) {
+            return new Tub(null);
+        }
+        return new Tub(trimline.split("\\s+"));
     }
 }
 

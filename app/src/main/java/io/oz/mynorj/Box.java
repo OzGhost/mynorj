@@ -16,7 +16,6 @@ public class Box {
     private final Map<String, Object> heap = new HashMap<>(); // <- store variables
     private boolean endval;
     private boolean stoped = false;
-    private Supplier<Boolean> endCallback;
     private JsonNode ground;
     private Queue<Object> states = new LinkedList<>();
     private boolean silenced = false;
@@ -28,15 +27,10 @@ public class Box {
         }
         endval = val;
         stoped = true;
-        if (endCallback != null) {
-            endCallback.get();
-        }
     }
 
-    private void runningCheck() {
-        if (stoped) {
-            throw new ExecutionException("The execution is not running !!!");
-        }
+    public boolean running() {
+        return !stoped;
     }
 
     public boolean outcome() {
@@ -44,10 +38,6 @@ public class Box {
             throw new ExecutionException("No outcome available !!!");
         }
         return endval;
-    }
-
-    public void setEndCallback(Supplier<Boolean> endCallback) {
-        this.endCallback = endCallback;
     }
 
     public Func getFunc(String name) {
@@ -77,23 +67,24 @@ public class Box {
             case "null":
                 return null;
             case "true":
-                checkType(type, Boolean.class);
+                checkType(type, Boolean.class, raw);
                 return (T)Boolean.TRUE;
             case "false":
-                checkType(type, Boolean.class);
+                checkType(type, Boolean.class, raw);
                 return (T)Boolean.FALSE;
             default:
                 break; // do nothing
         }
-        if (raw.matches("^[0-9]+(?:\\.[0-9]+)?$")) {
+        if (raw.matches("^-?[0-9]+(?:\\.[0-9]+)?$")) {
             try {
-                checkType(type, Double.class);
+                checkType(type, Double.class, raw);
                 return (T)Double.valueOf(raw);
             } catch(NumberFormatException ignored) { } // the given string may be a variable :)
         }
         if (raw.charAt(0) == '"' && raw.charAt(raw.length()-1) == '"') {
-            checkType(type, String.class);
-            return (T)raw;
+            checkType(type, String.class, raw);
+            String quotedString = (String) raw;
+            return (T)quotedString.substring(1, quotedString.length() - 1);
         }
         Object x = heap.get(raw);
         if (x == null) {
@@ -102,17 +93,20 @@ public class Box {
         if (x == NULL_OBJ) {
             return null;
         }
-        checkType(type, x.getClass());
+        checkType(type, x.getClass(), raw);
         return (T)x;
     }
 
-    private void checkType(Class<?> wanted, Class<?> actual) {
+    private void checkType(Class<?> wanted, Class<?> actual, String subject) {
         if (wanted != Object.class && wanted != actual) {
-            throw new ExecutionException("Expected <"+toName(wanted)+"> but was <"+toName(actual)+">");
+            throw new ExecutionException("Expect <"+subject+"> to be a <"+toName(wanted)+"> but was a <"+toName(actual)+">");
         }
     }
 
     private String toName(Class<?> c) {
+        if (c == Boolean.class) return "bool";
+        if (c == Double.class) return "num";
+        if (c == String.class) return "string";
         return c.getSimpleName().toLowerCase();
     }
 
