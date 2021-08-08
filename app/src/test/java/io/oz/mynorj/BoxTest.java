@@ -325,6 +325,17 @@ public class BoxTest {
         assertThrows(ExecutionException.class, () -> new Box().getNumber("35d"));
     }
 
+    @Test
+    public void test_getBool_when_given_string_is_null_then_return_false() {
+        assertFalse(new Box().getBool("null"));
+    }
+
+    @Test
+    public void test_getBool_when_given_string_is_boolean_then_return_it_value() {
+        assertFalse(new Box().getBool("false"));
+        assertTrue(new Box().getBool("true"));
+    }
+
     private static class MyFunc extends Func {
         MyFunc() {
             super("my");

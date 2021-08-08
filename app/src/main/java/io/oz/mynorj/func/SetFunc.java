@@ -11,7 +11,7 @@ public class SetFunc extends Func {
         new SetFunc().register();
     }
 
-    private SetFunc() {
+    SetFunc() {
         super("set");
     }
 

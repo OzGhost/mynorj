@@ -11,7 +11,7 @@ public class CompareFunc extends Func {
         new CompareFunc().register();
     }
 
-    private CompareFunc() {
+    CompareFunc() {
         super("compare");
     }
 
@@ -35,7 +35,7 @@ public class CompareFunc extends Func {
             case ">":
                 return relationship > 0;
             case "=":
-                return relationship = 0;
+                return relationship == 0;
             case "!=":
                 return relationship != 0;
             case "<=":
@@ -45,7 +45,7 @@ public class CompareFunc extends Func {
             default:
                 break; // nothing to do here
         }
-        throw new ExecutionException("Internal error! Encounter weird operation: '"+op+"'");
+        throw new ExecutionException("[compare] Internal error! Encounter weird operation: '"+op+"'");
     }
 }
 

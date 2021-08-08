@@ -13,8 +13,8 @@ public class IfFamily {
         new EndIfFunc().sign();
     }
 
-    private static class IfFunc extends Func {
-        private IfFunc() {
+    static class IfFunc extends Func {
+        IfFunc() {
             super("if");
         }
         void sign() { register(); }
@@ -33,7 +33,7 @@ public class IfFamily {
                 type = out.getClass().getSimpleName().toLowerCase();
             }
             if (type != null) {
-                throw new ExecutionException("Illegal argument! Expect <func> to return <bool> but was <"+type+">");
+                throw new ExecutionException("[if] Illegal argument! Expect <func> to return <bool> but was <"+type+">");
             }
             if ((Boolean) out) {
                 box.pushState(State.OK);
@@ -50,8 +50,8 @@ public class IfFamily {
         NOK
     }
 
-    private static class ElseFunc extends Func {
-        private ElseFunc() {
+    static class ElseFunc extends Func {
+        ElseFunc() {
             super("else");
         }
         void sign() { register(); }
@@ -64,14 +64,14 @@ public class IfFamily {
             if (box.isCurrentState(State.NOK)) {
                 box.release();
             } else {
-                throw new ExecutionException("Context failure! No if ahead!");
+                throw new ExecutionException("[else] Context failure! No if ahead!");
             }
             return null;
         }
     }
 
-    private static class EndIfFunc extends Func {
-        private EndIfFunc() {
+    static class EndIfFunc extends Func {
+        EndIfFunc() {
             super("endif");
         }
         void sign() { register(); }
@@ -79,7 +79,7 @@ public class IfFamily {
         @Override
         public Object runOn(Tub tub, Box box) {
             if (box.popState(State.OK) == null && box.popState(State.NOK) == null) {
-                throw new ExecutionException("Context failure! No if ahead!");
+                throw new ExecutionException("[endif] Context failure! No if ahead!");
             }
             box.release();
             return null;

@@ -135,6 +135,7 @@ public class Box {
     }
 
     public Object popState(Object state) {
+        if (states.isEmpty()) return null;
         if (states.getFirst() == state) { // allow to poll if given state is current state
             return states.removeFirst();
         }
@@ -156,6 +157,14 @@ public class Box {
         Double val = getValue(Double.class, raw);
         if (val == null) {
             return 0d;
+        }
+        return val;
+    }
+
+    public Boolean getBool(String raw) {
+        Boolean val = getValue(Boolean.class, raw);
+        if (val == null) {
+            return Boolean.FALSE;
         }
         return val;
     }

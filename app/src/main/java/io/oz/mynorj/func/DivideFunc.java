@@ -11,7 +11,7 @@ public class DivideFunc extends Func {
         new DivideFunc().register();
     }
 
-    private DivideFunc() {
+    DivideFunc() {
         super("divide");
     }
 
@@ -25,7 +25,7 @@ public class DivideFunc extends Func {
         Double x = box.getNumber(rawX);
         Double y = box.getNumber(rawY);
         if (y.compareTo(0d) == 0) {
-            throw new ExecutionException("Illegal argument! Divide by zero was forbidden");
+            throw new ExecutionException("[divide] Illegal argument! Divide by zero was forbidden!");
         }
         return x / y;
     }

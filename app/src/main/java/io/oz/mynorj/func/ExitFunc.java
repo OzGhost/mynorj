@@ -21,8 +21,8 @@ public class ExitFunc extends Func {
             throw new ExecutionException("Missing parameter. Try again with: exit <bool>");
         }
         Boolean outcome = box.getValue(Boolean.class, tub.pop());
-        if (outcome == null) {
-            throw new ExecutionException("Given value must have type <bool> but was <null>");
+        if (outcome == null) { // TODO: may see null as false
+            throw new ExecutionException("[exit] Given value must have type <bool> but was <null>");
         }
         box.end(outcome);
         return null;

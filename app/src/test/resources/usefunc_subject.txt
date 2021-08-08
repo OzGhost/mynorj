@@ -1,0 +1,17 @@
+{
+    "obj": {
+        "1st": true,
+        "2nd": 300,
+        "3rd": "noyou",
+        "4th": null
+    },
+    "arr": [
+        {
+            "sep": "past",
+            "dec": "future"
+        },
+        {
+            "aug": "present"
+        }
+    ]
+}

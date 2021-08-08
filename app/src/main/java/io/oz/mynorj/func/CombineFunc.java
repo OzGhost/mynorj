@@ -11,7 +11,7 @@ public class CombineFunc extends Func {
         new CombineFunc().register();
     }
 
-    private CombineFunc() {
+    CombineFunc() {
         super("combine");
     }
 
@@ -26,11 +26,8 @@ public class CombineFunc extends Func {
         if ( ! "and".equals(op) && ! "or".equals(op) ) {
             throw new ExecutionException("Syntax error! Try again with: combine <bool> <op> <bool>");
         }
-        Boolean x = box.getValue(Boolean.class, rx);
-        Boolean y = box.getValue(Boolean.class, ry);
-        if (x == null || y == null) {
-            throw new ExecutionException("Illegal argument! Expect <bool> but was <null>");
-        }
+        Boolean x = box.getBool(rx);
+        Boolean y = box.getBool(ry);
         if ("and".equals(op)) {
             return x && y;
         }

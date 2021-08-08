@@ -18,7 +18,7 @@ public class MultiplyFunc extends Func {
     @Override
     public Object runOn(Tub tub, Box box) {
         if (tub.remain() < 2) {
-            throw new ExecutionException("Argument missing! Try again with: myltiply <num> <num>");
+            throw new ExecutionException("Argument missing! Try again with: multiply <num> <num>");
         }
         String rawX = tub.pop();
         String rawY = tub.pop();

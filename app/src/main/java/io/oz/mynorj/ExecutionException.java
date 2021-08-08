@@ -6,10 +6,6 @@ public class ExecutionException extends RuntimeException {
         super(msg);
     }
 
-    public ExecutionException(Throwable e) {
-        super(e);
-    }
-
     public ExecutionException(Throwable e, String msg) {
         super(msg, e);
     }

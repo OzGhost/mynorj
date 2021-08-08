@@ -14,7 +14,7 @@ public class UseFunc extends Func {
         new UseFunc().register();
     }
 
-    private UseFunc() {
+    UseFunc() {
         super("use");
     }
 
